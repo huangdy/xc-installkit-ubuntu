@@ -1,0 +1,16 @@
+#!/bin/sh
+echo.
+echo INSTALL:  Openfire
+
+echo INFO: Generating self-signed keys for Openfire
+cd %OPENFIRE_HOME%\resources\security
+set SERVER_DNAME="cn=%FQDN%,dc=uicds,dc=us"
+export DAYS_VALID=365
+
+%KEYTOOLEXE% -storepasswd -keystore keystore -new %SYSADMINPASS% -storepass changeit
+%KEYTOOLEXE% -genkey -alias %FQDN% -keystore keystore -storepass %SYSADMINPASS% -validity %DAYS_VALID% -keypass %SYSADMINPASS% -dname %SERVER_DNAME%
+
+cd %INSTALL_HOME%
+echo INFO: Generating self-signed keys for Tomcat 
+%KEYTOOLEXE% -genkey -keyalg RSA -keysize 2048 -alias tomcat -keystore keystore.jks -storepass %SYSADMINPASS% -keypass %SYSADMINPASS% -validity %DAYS_VALID% -dname "CN=%FQDN%,ou=uicds,o=uicds,l=uicds,st=uicds,c=US"
+
