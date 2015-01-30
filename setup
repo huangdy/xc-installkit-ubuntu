@@ -10,41 +10,11 @@ echo  Beginning $BRANDING Installation
 echo -------------------------------------
 
 echo INFO: Setup OpenDJ
-/opt/opendj/setup --cli --no-prompt --doNotStart -Z 636 -q --generateSelfSignedCertificate -N UICDS --adminConnectorPort 4444 -D "cn=Directory Manager" -w $SYSADMINPASS -b dc=uicds,dc=us -a
+cd opendj && setup
 
-echo INFO: Starting OpenDJ
-/opt/opendj/bin/start-ds
 
-echo INFO: Creating Admin and User Groups
-cp configFiles/opendj/setup.ldif.orig configFiles/opendj/setup.ldif
-rpl "%%ADMINUSER%%" admin configFiles/opendj/setup.ldif
-%JAVAEXE% -cp %INSTALL_HOME%\setup\utility.jar com.saic.utility.FileRegex %CONFIG_HOME%\configFiles\opendj\setup.ldif "%%ADMINPASS%%" %ADMINPASS%
-%JAVAEXE% -cp %INSTALL_HOME%\setup\utility.jar com.saic.utility.FileRegex %CONFIG_HOME%\configFiles\opendj\setup.ldif "%%COREUSER%%" %COREUSER%
-%JAVAEXE% -cp %INSTALL_HOME%\setup\utility.jar com.saic.utility.FileRegex %CONFIG_HOME%\configFiles\opendj\setup.ldif "%%COREPASS%%" %COREPASS%
-
-@ping 127.0.0.1 -n 10 -w 1000 > nul
-
-CALL %OPENDJ_HOME%\bat\ldapmodify.bat --port 636 --bindDN "cn=Directory Manager" --bindPassword %SYSADMINPASS% --trustAll --useSSL --noPropertiesFile --defaultAdd -f %CONFIG_HOME%\configFiles\opendj\setup.ldif
-del %CONFIG_HOME%\configFiles\opendj\setup.ldif
-
-if defined JUMPTO (
-  GOTO SUCCESS
-)
-
-:SQLEXPRESS 
-echo.
-echo INSTALL:  MS SQL Server Express [%SQLSERVERBASE%]
-echo INSTALL:  This may take quite a while.  Please be patient.
-
-%CONFIG_HOME%\installFiles\%SQLSERVERBASE%.exe /q  /ACTION=Install /FEATURES=SQL /INSTANCENAME=MSSQLSERVER /SECURITYMODE=SQL /SAPWD=%SYSADMINPASS% /TCPENABLED=1 /INDICATEPROGRESS /IACCEPTSQLSERVERLICENSETERMS
-
-echo INFO:  Creating %BRANDING% database
-"C:\Program Files\Microsoft SQL Server\110\Tools\Binn"\sqlcmd.exe -U sa -P %SYSADMINPASS% -i %CONFIG_HOME%\configFiles\mssql\createDatabase.sql
-
-if defined JUMPTO (
-  GOTO SUCCESS
-)
-
+echo INFO: Setup OpenFire
+cd openfire && setup
 
 :OPENFIRE
 echo.

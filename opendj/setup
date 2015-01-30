@@ -1,20 +1,22 @@
 #!/bin/sh
 
 echo INFO: Setup OpenDJ
-/opt/opendj/setup --cli --no-prompt --doNotStart -Z 636 -q --generateSelfSignedCertificate -N XCHANGECORE --adminConnectorPort 4444 -D "cn=Directory Manager" -w $SYSADMINPASS -b dc=xchangecore,dc=us -a
+sudo /opt/opendj/setup --cli --no-prompt --doNotStart -Z 636 -q --generateSelfSignedCertificate -N XCHANGECORE --adminConnectorPort 4444 -D "cn=Directory Manager" -w xc.1549 -b dc=xchangecore,dc=us -a
 
 echo INFO: Starting OpenDJ
-/opt/opendj/bin/start-ds
+sudo /opt/opendj/bin/start-ds
 
 echo INFO: Creating Admin and User Groups
 cp conf/setup.ldif.orig conf/setup.ldif
 
 echo INFO: Replace all the replacements
 rpl "%ADMINUSER%" admin conf/setup.ldif
-rpl "%ADMINPASS%" xchagnecore.1549 conf/setup.ldif
+rpl "%ADMINPASS%" xc.1549 conf/setup.ldif
 rpl "%COREUSER%" xchangecore conf/setup.ldif
-rpl "%COREPASS%" xchangecore.1549 conf/setup.ldif
+rpl "%COREPASS%" xc.1549 conf/setup.ldif
 
-@echo ping 127.0.0.1 -n 10 -w 1000 > nul
+echo INFO: modify the ldap using setup.ldif
+sudo /opt/opendj/bin/ldapmodify -p 636 -D "cn=Directory Manager" -w xc.1549 -X -Z --noPropertiesFile -a -f conf/setup.ldif
 
-/opt/opendj/bin/ldapmodify -p 636 -D "cn=Directory Manager" -w xchangecore.1549 -X -Z --noPropertiesFile -a -f setup.ldif
+echo INFO: removed the setup.ldif
+rm conf/setup.ldif
