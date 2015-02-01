@@ -1,5 +1,5 @@
 #!/bin/sh
 
 echo INFO: install tomcat7
-sudo tar -C /usr/lib -zxvf apache-tomcat-7.0.35.tar.gz 
+sudo tar -C /usr/lib -zxvf apache-tomcat-7.0.57.tar.gz 
 
