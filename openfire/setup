@@ -24,4 +24,5 @@ rpl "%KEYSTORE_PASS%" "xc.1549" installKeystore
 
 sudo cp /etc/openfire/security/keystore /etc/openfire/security/keystore.orig
 sudo cp security/keystore /etc/openfire/security
-sudo chown openfire:openfire /etc/openfire/security/keystore*
+sudo chown openfire:openfire /etc/openfire/security/keystore.orig
+rm installKeystore
