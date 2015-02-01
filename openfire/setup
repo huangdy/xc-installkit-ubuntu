@@ -15,6 +15,14 @@ rpl "%OPENFIRE_ADMIN_PASS%" "xc.1549" conf/openfire_mysql.sql
 mysql -u root -p < conf/openfire_mysql.sql
 rm conf/openfire_mysql.sql
 
+echo INFO: configure the conf/openfire.xml
+cp conf/openfire.xml.orig conf/openfire.xml
+rpl "%OPENFIRE_MYSQL_PASS%" "xc.1549" conf/openfire.xml
+rpl "%HOSTNAME%" "core1" conf/openfire.xml
+sudo cp /etc/openfire/openfire.xml /etc/openfire/openfire.xml.orig
+sudo cp conf/openfire.xml /etc/openfire
+rm conf/openfire.xml
+
 echo INFO: Generating self-signed keys for Openfire
 cp installKeystore.orig installKeystore
 rpl "%HOSTNAME%" "core1" installKeystore
