@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo INFO: Install OpenDJ
+sudo unzip -d /opt OpenDJ-2.7.0-20131023.zip
+
 echo INFO: Setup OpenDJ
 sudo /opt/opendj/setup --cli --no-prompt --doNotStart -Z 636 -q --generateSelfSignedCertificate -N XCHANGECORE --adminConnectorPort 4444 -D "cn=Directory Manager" -w xc.1549 -b dc=xchangecore,dc=us -a
 

@@ -367,7 +367,7 @@ INSERT INTO ofVersion (name, version) VALUES ('openfire', 21);
 
 # Entry for admin user
 INSERT INTO ofUser (username, plainPassword, name, email, creationDate, modificationDate)
-    VALUES ('admin', '%ADMINPASS%', 'Administrator', 'admin@example.com', '0', '0');
+    VALUES ('admin', '%OPENFIRE_ADMIN_PASS%', 'Administrator', 'admin@example.com', '0', '0');
 
 # Entry for default conference service
 INSERT INTO ofMucService (serviceID, subdomain, isHidden) VALUES (1, 'conference', 0);

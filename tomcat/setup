@@ -1,5 +1,5 @@
 #!/bin/sh
-echo INFO: install tomcat7
 
-sudo apt-get install tomcat7 tomcat7-docs tomcat7-admin tomcat7-examples
+echo INFO: install tomcat7
+sudo tar -C /usr/lib -zxvf apache-tomcat-7.0.35.tar.gz 
 

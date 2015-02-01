@@ -1,23 +1,27 @@
 #!/bin/sh
-echo.
+
 echo INSTALL:  Openfire
-echo sudo dpkg -i openfire_3.7.1_all.deb
+sudo dpkg -i openfire_3.7.1_all.deb
+
+echo INFO: create the database: dbopenfire and user: openfire
+cp conf/create_mysql.sql.orig conf/create_mysql.sql
+rpl "OPENFIRE_MYSQL_PASS%" "xc.1549" conf/create_mysql.sql
+mysql -u root -p < conf/create_mysql.sql
+rm conf/create_mysql.sql
 
 echo INFO: create tables for OpenFire
 cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql
-rpl "%ADMINPASS%" "xc.1549" conf/openfire_mysql.sql
+rpl "%OPENFIRE_ADMIN_PASS%" "xc.1549" conf/openfire_mysql.sql
 mysql -u root -p < conf/openfire_mysql.sql
 rm conf/openfire_mysql.sql
 
 echo INFO: Generating self-signed keys for Openfire
-echo cd %OPENFIRE_HOME%\resources\security
-echo set SERVER_DNAME="cn=%FQDN%,dc=uicds,dc=us"
-echo export DAYS_VALID=365
+cp installKeystore.orig installKeystore
+rpl "%HOSTNAME%" "core1" installKeystore
+rpl "%KEYSTORE_PASS%" "xc.1549" installKeystore
 
-echo %KEYTOOLEXE% -storepasswd -keystore keystore -new %SYSADMINPASS% -storepass changeit
-echo %KEYTOOLEXE% -genkey -alias %FQDN% -keystore keystore -storepass %SYSADMINPASS% -validity %DAYS_VALID% -keypass %SYSADMINPASS% -dname %SERVER_DNAME%
+./installKeystore
 
-echo cd %INSTALL_HOME%
-echo echo INFO: Generating self-signed keys for Tomcat 
-echo %KEYTOOLEXE% -genkey -keyalg RSA -keysize 2048 -alias tomcat -keystore keystore.jks -storepass %SYSADMINPASS% -keypass %SYSADMINPASS% -validity %DAYS_VALID% -dname "CN=%FQDN%,ou=uicds,o=uicds,l=uicds,st=uicds,c=US"
-
+sudo cp /etc/openfire/security/keystore /etc/openfire/security/keystore.orig
+sudo cp security/keystore /etc/openfire/security
+sudo chown openfire:openfire /etc/openfire/security/keystore*

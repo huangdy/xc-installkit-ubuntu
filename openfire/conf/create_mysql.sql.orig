@@ -1,0 +1,6 @@
+# the database: dbopenfire creation script
+
+create database dbopenfire character set='utf8';
+create user 'openfire'@'localhost' identified by '%OPENFIRE_MYSQL_PASS%';
+grant all privileges on dbopenfire.* to openfire@localhost with grant option;
+flush privileges;
