@@ -1,5 +1,16 @@
 #!/bin/sh
 
-echo INFO: install tomcat7
-sudo tar -C /usr/lib -zxvf apache-tomcat-7.0.57.tar.gz 
+echo INFO: install tomcat7 >> ../install.log
+sudo tar -C /usr/lib -zxvf apache-tomcat-7.0.57.tar.gz 2>&1 | tee -a ../install.log
 
+echo INFO: sudo cp /usr/lib/apache-tomcat-7.0.57/conf/server.xml /usr/lib/apache-tomcat-7.0.57/conf/server.xml.orig >> ../install.log
+sudo cp /usr/lib/apache-tomcat-7.0.57/conf/server.xml /usr/lib/apache-tomcat-7.0.57/conf/server.xml.orig 2>&1 | tee -a ../install.log
+
+echo INFO: sudo cp /usr/lib/apache-tomcat-7.0.57/conf/tomcat-users.xml /usr/lib/apache-tomcat-7.0.57/conf/tomcat-users.xml >> ../install.log
+sudo cp /usr/lib/apache-tomcat-7.0.57/conf/tomcat-users.xml /usr/lib/apache-tomcat-7.0.57/conf/tomcat-users.xml.orig 2>&1 | tee -a ../install.log
+
+echo INFO: sudo cp conf/server.xml /usr/lib/apache-tomcat-7.0.57/conf >> ../install.log
+sudo cp conf/server.xml /usr/lib/apache-tomcat-7.0.57/conf 2>&1 | tee -a ../install.log
+
+echo INFO: sudo cp ../openfire/security/keystore.jks /usr/lib/apache-tomcat-7.0.57/conf >> ../install.log
+sudo cp ../openfire/security/keystore.jks /usr/lib/apache-tomcat-7.0.57/conf 2>&1 | tee -a ../install.log
