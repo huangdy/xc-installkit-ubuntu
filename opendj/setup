@@ -37,3 +37,6 @@ sudo /opt/opendj/bin/ldapmodify -p 636 -D "cn=Directory Manager" -w $opendj_pass
 echo INFO: removed the setup.ldif
 echo INFO: rm conf/setup.ldif >> ../install.log
 rm conf/setup.ldif 2>&1 | tee -a ../install.log
+
+echo INFO: Starting the OpenDJ >> ../install.log
+sudo /opt/opendj/bin/start-ds 2>&1 | tee -a ../install.log
