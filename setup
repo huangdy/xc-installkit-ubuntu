@@ -9,10 +9,10 @@ echo 	- sudo apt-get install curl >> install.log
 echo 	- sudo apt-get install mysql-server >> install.log
 
 echo Install the OpenDJ >> install.log
-# cd opendj && setup
+cd opendj && setup
 
 echo Install the Tomcat >> install.log
-# cd tomcat && setup
+cd tomcat && setup
 
 echo Install the OpenFire >> install.log
 cd openfire && setup
