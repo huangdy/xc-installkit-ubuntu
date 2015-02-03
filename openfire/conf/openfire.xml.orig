@@ -22,7 +22,7 @@
   <database>
     <defaultProvider>
       <driver>com.mysql.jdbc.Driver</driver> 
-      <serverURL>jdbc:mysql://%HOSTNAME%:3306/dbopenfire</serverURL> 
+      <serverURL>jdbc:mysql://localhost:3306/dbopenfire</serverURL> 
       <username>openfire</username> 
       <password>%OPENFIRE_MYSQL_PASS%</password> 
       <testSQL>select 1</testSQL> 

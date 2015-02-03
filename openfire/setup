@@ -34,8 +34,8 @@ echo INFO: cp conf/openfire.xml.orig conf/openfire.xml >> ../install.log
 cp conf/openfire.xml.orig conf/openfire.xml 2>&1 | tee -a ../install.log
 echo INFO: rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_openfire_passwd" conf/openfire.xml >> ../install.log
 rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_openfire_passwd" conf/openfire.xml 2>&1 | tee -a ../install.log
-echo INFO: rpl "%HOSTNAME%" "$hostname" conf/openfire.xml >> ../install.log
-rpl "%HOSTNAME%" "$hostname" conf/openfire.xml 2>&1 | tee -a ../install.log
+# echo INFO: rpl "%HOSTNAME%" "$hostname" conf/openfire.xml >> ../install.log
+# rpl "%HOSTNAME%" "$hostname" conf/openfire.xml 2>&1 | tee -a ../install.log
 echo INFO: sudo cp /etc/openfire/openfire.xml /etc/openfire/openfire.xml.orig >> ../install.log
 sudo cp /etc/openfire/openfire.xml /etc/openfire/openfire.xml.orig 2>&1 | tee -a ../install.log
 echo INFO: sudo chown openfire:openfire /etc/openfire/openfire.xml.orig >> ../install.log
