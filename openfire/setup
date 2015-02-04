@@ -7,6 +7,8 @@ sudo dpkg -i openfire_3.7.1_all.deb 2>&1 | tee -a ../install.log
 read -p "Enter the hostname: " hostname
 read -p "Enter the Password for MySQL User: openfire: " mysql_openfire_passwd
 read -p "Enter the Password for OpenFire User: admin: " openfire_admin_passwd 
+read -p "Enter the XMPP's FQDN: " fqdn
+read -p "Enter the Password for LDAP's Admin: " ldap_admin_passwd
 read -p "Enter the Password for keystore: " keystore_passwd
 
 echo INFO: create the database: dbopenfire and user: openfire >> ../install.log
@@ -24,6 +26,13 @@ echo INFO: cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql >> ../install
 cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo INFO: rpl "%OPENFIRE_ADMIN_PASS%" "$openfire_admin_passwd" conf/openfire_mysql.sql >> ../install.log
 rpl "%OPENFIRE_ADMIN_PASS%" "$openfire_admin_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+echo rpl "%LDAP_ADMIN_PASS%" "$ldap_admin_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+rpl "%LDAP_ADMIN_PASS%" "$ldap_admin_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+echo rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+echo rpl "%KEYSTORE_PASS%" "$keystore_pass" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+rpl "%KEYSTORE_PASS%" "$keystore_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+echo INFO: "mysql -u root -p < conf/openfire_mysql.sql" >> ../install.log
 echo INFO: "mysql -u root -p < conf/openfire_mysql.sql" >> ../install.log
 mysql -u root -p < conf/openfire_mysql.sql
 echo INFO: rm conf/openfire_mysql.sql >> ../install.log
@@ -34,8 +43,6 @@ echo INFO: cp conf/openfire.xml.orig conf/openfire.xml >> ../install.log
 cp conf/openfire.xml.orig conf/openfire.xml 2>&1 | tee -a ../install.log
 echo INFO: rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_openfire_passwd" conf/openfire.xml >> ../install.log
 rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_openfire_passwd" conf/openfire.xml 2>&1 | tee -a ../install.log
-# echo INFO: rpl "%HOSTNAME%" "$hostname" conf/openfire.xml >> ../install.log
-# rpl "%HOSTNAME%" "$hostname" conf/openfire.xml 2>&1 | tee -a ../install.log
 echo INFO: sudo cp /etc/openfire/openfire.xml /etc/openfire/openfire.xml.orig >> ../install.log
 sudo cp /etc/openfire/openfire.xml /etc/openfire/openfire.xml.orig 2>&1 | tee -a ../install.log
 echo INFO: sudo chown openfire:openfire /etc/openfire/openfire.xml.orig >> ../install.log
