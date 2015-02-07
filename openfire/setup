@@ -17,6 +17,7 @@ cp conf/create_mysql.sql.orig conf/create_mysql.sql 2>&1 | tee -a ../install.log
 echo INFO: rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_openfire_passwd" conf/create_mysql.sql >> ../install.log
 rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_openfire_passwd" conf/create_mysql.sql 2>&1 | tee -a ../install.log
 echo INFO: "mysql -u root -p < conf/create_mysql.sql" >> ../install.log
+echo "Enter MySQL root Password: "
 mysql -u root -p < conf/create_mysql.sql
 echo INFO: rm conf/create_mysql.sql >> ../install.log
 rm conf/create_mysql.sql 2>&1 | tee -a ../install.log
@@ -33,7 +34,7 @@ rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%KEYSTORE_PASS%" "$keystore_pass" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 rpl "%KEYSTORE_PASS%" "$keystore_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo INFO: "mysql -u root -p < conf/openfire_mysql.sql" >> ../install.log
-echo INFO: "mysql -u root -p < conf/openfire_mysql.sql" >> ../install.log
+echo "Enter MySQL root Password: "
 mysql -u root -p < conf/openfire_mysql.sql
 echo INFO: rm conf/openfire_mysql.sql >> ../install.log
 rm conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
@@ -53,6 +54,9 @@ echo INFO: rm conf/openfire.xml >> ../install.log
 rm conf/openfire.xml 2>&1 | tee -a ../install.log
 
 echo INFO: Generating self-signed keys for Openfire >> ../install.log
+echo cp /etc/openfire/security/keystore security >> ../install.log
+cp /etc/openfire/security/keystore security 2>&1 ../install.log
+
 echo INFO: cp installKeystore.orig installKeystore >> ../install.log
 cp installKeystore.orig installKeystore 2>&1 | tee -a ../install.log
 echo INFO: rpl "%HOSTNAME%" "$hostname" installKeystore >> ../install.log
@@ -83,12 +87,12 @@ echo INFO: Starting the OpenFire
 sudo service openfire restart
 
 echo INFO: sudo cp security/keystore.jks /etc/openfire/security >> ../install.log
-sudo cp security/keystore.jks /usr/lib/apache-tomcat-7.0.57/conf 2>&1 | tee -a ../install.log
+sudo cp security/keystore.jks /usr/share/tomcat7/conf 2>&1 | tee -a ../install.log
 
 echo INFO: sudo rm security/keystore.jks >> ../install.log
 sudo rm security/keystore.jks 2>&1 | tee -a ../install.log
 
 echo INFO: Starting the Tomcat >> ../install.log
-service tomcat7 start 2>&1 | tee -a ../install.log
+sudo service tomcat7 start 2>&1 | tee -a ../install.log
 
 echo INFO: ... done ...
