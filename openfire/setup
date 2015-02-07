@@ -89,6 +89,6 @@ echo INFO: sudo rm security/keystore.jks >> ../install.log
 sudo rm security/keystore.jks 2>&1 | tee -a ../install.log
 
 echo INFO: Starting the Tomcat >> ../install.log
-sudo /usr/lib/apache-tomcat-7.0.57/bin/startup.sh 2>&1 | tee -a ../install.log
+service tomcat7 start 2>&1 | tee -a ../install.log
 
 echo INFO: ... done ...
