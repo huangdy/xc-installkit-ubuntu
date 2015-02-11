@@ -30,7 +30,7 @@
    <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" xmlValidation="false"
     xmlNamespaceAware="false">
 
-    <Context path="" docBase="docs" debug="true" privileged="true">
+    <Context path="" docBase="xchangecore" debug="true" privileged="true">
      <Valve className="org.apache.catalina.authenticator.BasicAuthenticator"
       disableProxyCaching="false" />
     </Context>
