@@ -10,15 +10,11 @@ read -p "Enter the XMPP's FQDN: " fqdn
 read -p "Enter the Password for LDAP's Admin: " ldap_admin_passwd
 read -p "Enter the Password for keystore: " keystore_passwd
 
-echo create the database: dbopenfire and user: openfire >> ../install.log
-echo cp conf/create_mysql.sql.orig conf/create_mysql.sql >> ../install.log
-cp conf/create_mysql.sql.orig conf/create_mysql.sql 2>&1 | tee -a ../install.log
-echo rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_sa_passwd" conf/create_mysql.sql >> ../install.log
-rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_sa_passwd" conf/create_mysql.sql 2>&1 | tee -a ../install.log
-
 echo create tables for OpenFire >> ../install.log
 echo cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql >> ../install.log
 cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+echo rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_sa_passwd" conf/openfire_mysql.sql >> ../install.log
+rpl "%OPENFIRE_MYSQL_PASS%" "$mysql_sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%OPENFIRE_ADMIN_PASS%" "$openfire_admin_passwd" conf/openfire_mysql.sql >> ../install.log
 rpl "%OPENFIRE_ADMIN_PASS%" "$openfire_admin_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%LDAP_ADMIN_PASS%" "$ldap_admin_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
@@ -28,12 +24,9 @@ rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%KEYSTORE_PASS%" "$keystore_pass" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 rpl "%KEYSTORE_PASS%" "$keystore_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 
-echo "mysql -u root -p < conf/create_mysql.sql" >> ../install.log
+echo "mysql -u root -p < conf/openfire_mysql.sql" >> ../install.log
 echo "Enter MySQL root Password: "
-mysql -u root -p < conf/create_mysql.sql
 mysql -u root -p < conf/openfire_mysql.sql
-echo rm conf/create_mysql.sql >> ../install.log
-rm conf/create_mysql.sql 2>&1 | tee -a ../install.log
 echo rm conf/openfire_mysql.sql >> ../install.log
 rm conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 
