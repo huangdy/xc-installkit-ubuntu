@@ -4,6 +4,9 @@ echo INSTALL:  Openfire >> ../install.log >> ../install.log
 echo sudo dpkg -i openfire_3.7.1_all.deb >> ../install.log
 sudo dpkg -i openfire_3.7.1_all.deb 2>&1 | tee -a ../install.log
 
+echo setup firewall for openfire 2>&1 | tee -a ../install.log
+. ./firewall.sh
+
 read -p "Enter the Password for MySQL User: sa: " mysql_sa_passwd
 read -p "Enter the Password for OpenFire User: admin: " openfire_admin_passwd 
 read -p "Enter the XMPP's FQDN: " fqdn
