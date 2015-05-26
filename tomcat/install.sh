@@ -9,7 +9,7 @@ sudo mv /usr/share/apache-tomcat-7.0.57 /usr/share/tomcat7 2>&1 | tee -a ../inst
 echo sudo cp conf/etc.init_d.tomcat7 /etc/init.d/tomcat7 >> ../install.log
 sudo cp conf/etc.init_d.tomcat7 /etc/init.d/tomcat7 2>&1 | tee -a ../install.log
 
-echo sudo update-rc.d tomcat8 defaults >> ../install.log
+echo sudo update-rc.d tomcat7 defaults >> ../install.log
 sudo update-rc.d tomcat7 defaults 2>&1 | tee -a ../install.log
 
 echo sudo cp /usr/share/tomcat7/conf/server.xml /usr/share/tomcat7/conf/server.xml.orig >> ../install.log
