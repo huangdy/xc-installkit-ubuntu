@@ -1,5 +1,5 @@
 #!/bin/sh
+sa_passwd=$1
 
-echo 'mysql -u sa -p < conf/xchangecore_cleanup.sql' >> ../uninstall.log
-echo 'Enter MySQL sa password: '
-mysql -u sa -p < conf/xchangecore_cleanup.sql 2>&1 | tee -a ../uninstall.log
+echo mysql -u sa -p$sa_passwd < conf/xchangecore_cleanup.sql 2>&1 | tee -a ../uninstall.log
+mysql -u sa -p$sa_passwd < conf/xchangecore_cleanup.sql 2>&1 | tee -a ../uninstall.log

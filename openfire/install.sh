@@ -24,9 +24,8 @@ rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%KEYSTORE_PASS%" "$keystore_pass" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 rpl "%KEYSTORE_PASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 
-echo "mysql -u sa -p < conf/openfire_mysql.sql" >> ../install.log
-echo "Enter MySQL sa Password: "
-mysql -u sa -p < conf/openfire_mysql.sql
+echo mysql -u sa -p < conf/openfire_mysql.sql
+mysql -u sa -p$sa_passwd < conf/openfire_mysql.sql
 echo rm conf/openfire_mysql.sql >> ../install.log
 rm conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 

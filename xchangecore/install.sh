@@ -22,8 +22,7 @@ echo rpl -q "%LOCATION%" "$lat_lon" xchangecore/core.properties 2>&1 | tee -a ..
 rpl -q "%LOCATION%" "$lat_lon" xchangecore/core.properties 2>&1 | tee -a ../../install.log
 
 echo mysql -u sa -p < conf/xchangecore_creation.sql 2>&1 | tee -a ../install.log
-echo "Enter MySQL sa Password: "
-mysql -u sa -p < conf/xchangecore_creation.sql 2>&1 | tee -a ../install.log
+mysql -u sa -p$sa_passwd < conf/xchangecore_creation.sql 2>&1 | tee -a ../install.log
 
 echo tar xvf opendj-connector.war 2>&1 | tee -a ../install.log
 tar xvf opendj-connector.war 2>&1 | tee -a ../install.log
