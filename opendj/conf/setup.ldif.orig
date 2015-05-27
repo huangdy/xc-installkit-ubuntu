@@ -43,7 +43,7 @@ description: CORE Users
 objectclass: top
 objectClass: groupOfUniqueNames
 objectClass: geoLocation
-geoLatitude: 38.883
-geoLongitude: -77.1083
+geoLatitude: %LATITUDE%
+geoLongitude: %LONGITUDE%
 uniqueMember: cn=%ADMINUSER%,dc=xchangecore,dc=us
 uniqueMember: cn=%COREUSER%,dc=xchangecore,dc=us

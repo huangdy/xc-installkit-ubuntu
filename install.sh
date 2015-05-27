@@ -8,14 +8,21 @@ echo 	- sudo apt-get install unzip >> install.log
 echo 	- sudo apt-get install curl >> install.log
 echo 	- sudo apt-get install mysql-server >> install.log
 
+read -p "Enter the System Administrator's Password: " sa_passwd
+read -p "Enter the Administrator User's Password: " au_passwd
+read -p "Enter the Core User's Password: " cu_passwd
+read -p "Enter latitude for core's proximity: (Enter for skip) " lat
+read -p "Enter longitude for core's proximity: (Enter for skip) " lon
+
+
 echo Install the xchangecore and opendj-connector >> install.log
-cd xchangecore && ./install.sh && cd -
+cd xchangecore && ./install.sh $sa_passwd $au_passwd $cu_passwd $lat $lon && cd -
 
 echo Install the OpenDJ >> install.log
-cd opendj && ./install.sh && cd -
+cd opendj && ./install.sh $sa_passwd $au_passwd $cu_passwd $lat $lon && cd -
 
 echo Install the Tomcat >> install.log
-cd tomcat && ./install.sh && cd -
+cd tomcat && ./install.sh $sa_passwd $au_passwd $cu_passwd && cd -
 
 echo Install the OpenFire >> install.log
-cd openfire && ./install.sh && cd -
+cd openfire && ./install.sh $sa_passwd $au_passwd $cu_passwd && cd -
