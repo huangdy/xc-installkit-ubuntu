@@ -15,14 +15,10 @@ echo cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql 2>&1 | tee -a ../in
 cp conf/openfire_mysql.sql.orig conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%SYSADMINPASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 rpl "%SYSADMINPASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
-echo rpl "%OPENFIRE_ADMIN_PASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
-rpl "%OPENFIRE_ADMIN_PASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
-echo rpl "%LDAP_ADMIN_PASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
-rpl "%LDAP_ADMIN_PASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+echo rpl "%ADMINPASS%" "$au_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
+rpl "%ADMINPASS%" "$au_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 echo rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 rpl "%FQDN%" "$fqdn" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
-echo rpl "%KEYSTORE_PASS%" "$keystore_pass" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
-rpl "%KEYSTORE_PASS%" "$sa_passwd" conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
 
 echo "mysql -u root -p < conf/openfire_mysql.sql" 2>&1 | tee -a ../install.log
 mysql -u root -p < conf/openfire_mysql.sql 2>&1 | tee -a ../install.log
