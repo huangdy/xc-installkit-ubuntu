@@ -24,7 +24,7 @@
       <driver>com.mysql.jdbc.Driver</driver> 
       <serverURL>jdbc:mysql://localhost:3306/dbopenfire</serverURL> 
       <username>openfire</username> 
-      <password>%OPENFIRE_MYSQL_PASS%</password> 
+      <password>%SYSADMINPASS%</password> 
       <testSQL>select 1</testSQL> 
       <testBeforeUse>true</testBeforeUse> 
       <testAfterUse>true</testAfterUse> 
